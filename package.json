@@ -1,0 +1,25 @@
+{
+  "name": "desafio_fullstack",
+  "version": "1.0.0",
+  "description": "Nuestro proyecto fullstack para el desafio",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm run dev --prefix client",
+    "clientinstall": "npm install --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "deploy": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {
+    "cowsay": "^1.6.0",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "morgan": "^1.10.1",
+    "nodemon": "^3.1.10"
+  }
+}
