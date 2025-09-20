@@ -7,8 +7,8 @@ const Main = () => {
   return (
     <main className="main">
       <Routes>
-        <Route path='/' element={< />} />
-        <Route path='/login' element={<Login/>} />
+        <Route path='/' element={<Login />} />
+        {/* <Route path='/login' element={<Login/>} /> */}
         <Route path='/*' element={<NotFound/>} />
       </Routes>
     </main>
