@@ -10,7 +10,7 @@
     "client": "npm run dev --prefix client",
     "clientinstall": "npm install --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "deploy": "concurrently \"npm run server\" \"npm run client\"",
+    "deploy": "npm run server",
     "feed_db": "node seed/seeder.js"
   },
   "dependencies": {
