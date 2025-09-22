@@ -42,7 +42,7 @@ if (process.env.NODE_ENV === 'production') {
   // Static folder
   app.use(express.static(path.join(__dirname, 'client', 'build')));
   // Catch-all handler para React routing
-  app.get('*', (req, res) => {
+  app.get('/^\/(?!api).*/', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
