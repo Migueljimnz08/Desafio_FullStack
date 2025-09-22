@@ -1,7 +1,7 @@
 const userQueries = {
     signUpUser: `
-    INSERT INTO Users (Username, Email, Password)
-    VALUES ($1, $2, $3)`,
+    INSERT INTO Users (company_id, Username, Email, Password)
+    VALUES ($1, $2, $3, $4)`,
     getUserByEmail: `
     SELECT * FROM Users 
     WHERE Email = $1`,

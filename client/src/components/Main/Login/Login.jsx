@@ -21,7 +21,7 @@ const Login = () => {
   };
 
   return (<section className='login-form'>
-    <h2>Inicia sesion</h2>
+    <h2>Inicia sesión</h2>
     <form onSubmit={handleSubmit}>
       <input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
       <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" />

@@ -1,0 +1,24 @@
+// Sombras
+@mixin card-shadow {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+@mixin hover-shadow {
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  &:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    transform: translateY(-3px);
+  }
+}
+
+// Gradiente 
+@mixin cyber-gradient {
+  background: linear-gradient(135deg, #007bff, #00d4ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+// Transiciones suaves
+@mixin smooth-transition {
+  transition: all 0.3s ease-in-out;
+}

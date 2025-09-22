@@ -1,0 +1,9 @@
+@use '../utils/variables' as vars;
+
+body {
+  background-color: vars.$background-color;
+  color: vars.$color-text;
+  font-family: vars.$font-family;
+  margin: 0;
+  padding: 0;
+}
