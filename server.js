@@ -35,9 +35,11 @@ app.get('/', (req, res) => {
 
 // Rutas
 const usersRoutes = require('./routes/users.routes');
+const logsRoutes = require('./routes/logs.routes');
 
 // Rutas API 
 app.use('/api', usersRoutes);
+app.use('/api/logs', logsRoutes);
 
 //* Serve static assets in production, must be at this location of this file
 if (process.env.NODE_ENV === 'production') {
