@@ -10,7 +10,8 @@
     "client": "npm run dev --prefix client",
     "clientinstall": "npm install --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "deploy": "concurrently \"npm run server\" \"npm run client\""
+    "deploy": "concurrently \"npm run server\" \"npm run client\"",
+    "feed_db": "node seed/seeder.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",

@@ -1,0 +1,59 @@
+@use '../utils/variables' as vars;
+@use '../utils/mixins' as mixins;
+
+.login-form {
+  background-color: vars.$background-color;
+  color: #fff;
+  max-width: 400px;
+  margin: 4rem auto;
+  padding: 2rem;
+  border-radius: 12px;
+  @include mixins.card-shadow; 
+  text-align: center;
+
+  h2 {
+    @include mixins.cyber-gradient; 
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    input {
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1px solid vars.$border-color;
+      background-color: vars.$input-background;
+      font-size: 1rem;
+      @include mixins.smooth-transition;
+
+      &:focus {
+        outline: none;
+        border-color: vars.$primary-color;
+        box-shadow: 0 0 6px rgba(0, 123, 255, 0.5);
+      }
+    }
+
+    button {
+      padding: 0.75rem 1rem;
+      background-color: vars.$primary-color;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      @include mixins.hover-shadow; // ← sombra animada
+    }
+
+    p {
+      color: #ff4d4f;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+  }
+}

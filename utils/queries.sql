@@ -17,8 +17,8 @@ VALUES
   create table "logs" (
   id SERIAL PRIMARY KEY,
   company_id INT NOT NULL,
-  status VARCHAR(100) NOT NULL,
-  alerts VARCHAR(150) UNIQUE NOT NULL,
+  status VARCHAR(100) NOT NULL DEFAULT 'Nuevo',
+  type VARCHAR(150) NOT NULL,
   indicators VARCHAR(255) NOT NULL,
   severity INT NOT NULL,
   "date" DATE NOT NULL,

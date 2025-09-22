@@ -12,14 +12,14 @@ dotenv.config();
 
 // Middlewares
 const morgan = require('./middlewares/morgan');
-// const setRole = require('./middlewares/roleAccess');
+const setUser = require('./middlewares/decodedUser');
 
 // Middleware para servir archivos estáticos
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 // Todas las rutas tienen acceso a req.user
-// app.use(setRole);
+app.use(setUser);
 
 app.use(cors());
 
@@ -29,10 +29,6 @@ app.use(helmet());
 // Configuración del logger con morgan
 app.use(morgan(':method :url :status :param[id] - :response-time ms :body'));
 
-app.get('/', (req, res) => {
-    res.json({ message: 'Servidor funcionando 🚀' });
-});
-
 // Rutas
 const usersRoutes = require('./routes/users.routes');
 const logsRoutes = require('./routes/logs.routes');
@@ -41,9 +37,9 @@ const logsRoutes = require('./routes/logs.routes');
 app.use('/api', usersRoutes);
 app.use('/api/logs', logsRoutes);
 
-//* Serve static assets in production, must be at this location of this file
+// Serve static assets in production, must be at this location of this file
 if (process.env.NODE_ENV === 'production') {
-    //*Set static folder
+    // Set static folder
     app.use(express.static('client/build'));
 
     app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')));

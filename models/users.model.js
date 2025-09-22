@@ -4,6 +4,19 @@ const { executeQuery } = require('../utils/pgHelper');
 const regex = require('../utils/regex');
 
 /**
+ * Obtiene un usuario por su correo electrónico.
+ *
+ * @async
+ * @function getUserByEmail
+ * @param {string} email - Correo electrónico del usuario.
+ * @returns {Promise<Object|null>} - Objeto del usuario o null si no se encuentra.
+ */
+const getUserByEmail = async (email) => {
+  const result = await executeQuery(queries.getUserByEmail, [email]);
+  return result[0];
+}
+
+/**
  * Registra un nuevo usuario en la base de datos.
  *
  * @async
@@ -14,7 +27,7 @@ const regex = require('../utils/regex');
  * @throws {Error} Si el email o la contraseña no tienen un formato válido.
  * @returns {Promise<Object>} - Resultado de la operación de inserción.
  */
-const signUpUser = async (username, email, password) => {
+const signUpUser = async (company_id, username, email, password) => {
   const hashedPassword = await bcrypt.hash(password, 10);
   if (!regex.validateEmail(email)) {
     throw new Error('Introduce a valid email')
@@ -22,7 +35,7 @@ const signUpUser = async (username, email, password) => {
   if (!regex.validatePassword(password)) {
     throw new Error('Password must be 8 characters long and must include an uppercase letter, lowercase letter, a number and a symbol')
   }
-  const newUser = [username, email, hashedPassword];
+  const newUser = [company_id, username, email, hashedPassword];
   return await executeQuery(queries.signUpUser, newUser);
 }
 
@@ -53,6 +66,7 @@ const logOut = async (email) => {
 };
 
 module.exports = {
+  getUserByEmail,
   signUpUser,
   logIn,
   logOut
