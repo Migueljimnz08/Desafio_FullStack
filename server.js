@@ -40,10 +40,10 @@ app.use('/api/logs', logsRoutes);
 //* Serve static assets in production, must be at this location of this file
 if (process.env.NODE_ENV === 'production') {
   // Static folder
-  app.use(express.static(path.join(__dirname, 'client', 'build')));
+  app.use(express.static(path.join(__dirname, 'client', 'dist')));
   // Catch-all handler para React routing
   app.get(/^\/(?!api).*/, (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
   });
 }
 
