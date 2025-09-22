@@ -37,12 +37,14 @@ const logsRoutes = require('./routes/logs.routes');
 app.use('/api', usersRoutes);
 app.use('/api/logs', logsRoutes);
 
-// Serve static assets in production, must be at this location of this file
+//* Serve static assets in production, must be at this location of this file
 if (process.env.NODE_ENV === 'production') {
-    // Set static folder
-    app.use(express.static('client/build'));
-
-    app.get('/*', (req, res) => res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')));
+  // Static folder
+  app.use(express.static(path.join(__dirname, 'client', 'build')));
+  // Catch-all handler para React routing
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
 }
 
 app.listen(port, () => {
