@@ -7,6 +7,13 @@ const getAllLogs = async () => {
     return rows;
 };
 
+//LOGS POR SEVERIDAD
+const getLogsBySeverity = async (severity) => {
+    const rows = await executeQuery(queries.getLogsBySeverity, [severity])
+    return rows;
+};
+
 module.exports = {
-    getAllLogs
+    getAllLogs,
+    getLogsBySeverity
 }

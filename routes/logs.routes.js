@@ -4,6 +4,7 @@ const router = express.Router();
 
 // GET ALL LOGS
 // GET http://localhost:3000/api/logs
-router.get('/', logsController.getAllLogs);
+// ENDPOINT POR SEVERITY /logs?severity=2
+router.get('/', logsController.getLogs);
 
 module.exports = router;
