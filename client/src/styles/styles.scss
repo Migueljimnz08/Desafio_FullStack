@@ -1,4 +1,6 @@
 
-@use './views/App';
 @use './views/Index';
-@use './components/Login'
+@use './views/App';
+@use './components/Login';
+@use './components/Footer';
+@use './components/NotFound';

@@ -10,7 +10,7 @@ function App() {
     <>
       <Header/>
       <BrowserRouter>   
-        <Main/>
+        <Main className='main'/>
       </BrowserRouter> 
       <Footer/>
     </>
