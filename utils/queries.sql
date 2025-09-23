@@ -44,6 +44,11 @@ VALUES
 SELECT * 
 FROM "logs";
 
+-- Obtener datos tabla logs por criticidad
+SELECT *
+FROM "logs"
+WHERE severity =
+
 -- Crear tabla usuarios
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
