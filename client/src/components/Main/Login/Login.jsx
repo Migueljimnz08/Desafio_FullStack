@@ -20,14 +20,16 @@ const Login = () => {
     }
   };
 
-  return (<section className='login-form'>
-    <h2>Inicia sesión</h2>
-    <form onSubmit={handleSubmit}>
-      <input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
-      <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" />
-      <button type="submit">Login</button>
-      {error!=null? <p>{error}</p>: null}
-    </form>
+  return (<section className='login-page'>
+    <div className='login-form'>
+      <h2>Inicia sesión</h2>
+      <form onSubmit={handleSubmit}>
+        <input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
+        <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" />
+        <button type="submit">Login</button>
+        {error!=null? <p>{error}</p>: null}
+      </form>
+    </div>
   </section> );
 }
 
