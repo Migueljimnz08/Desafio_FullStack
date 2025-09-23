@@ -30,3 +30,15 @@ export const logout = async () => {
         throw new Error(error.message);
     } 
 };
+
+export const getUserInfo = async () => {
+    try{
+        const res = await fetch('/api/userInfo', {credentials: 'include'});
+         if (!res.ok) {
+            throw new Error('Error getting info from user');
+        }
+        return res.json();
+    } catch (error) {
+        throw new Error(error.message);
+    } 
+}

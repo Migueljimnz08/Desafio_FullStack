@@ -51,7 +51,18 @@ const logoutUser = async (req, res) => {
     }
 };
 
+// GET http://localhost:3000/api/me
+const getCurrentUser = (req, res) => {
+  if (!req.user) {
+    return res.status(401).json({ error: 'No authenticated user' });
+  }
+
+  const { id, email, role, logged } = req.user;
+  return res.status(200).json({ id, email, role, logged });
+};
+
 module.exports = {
     loginUser,
-    logoutUser
+    logoutUser,
+    getCurrentUser
 };
