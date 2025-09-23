@@ -23,6 +23,11 @@ app.use(setUser);
 
 app.use(cors());
 
+// app.use(cors({
+//   origin: "http://localhost:3000", 
+//   credentials: true
+// }));
+
 // Mas protección para la web
 app.use(helmet());
 
