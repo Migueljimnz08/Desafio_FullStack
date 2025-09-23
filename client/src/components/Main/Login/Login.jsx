@@ -14,7 +14,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await login(email, password);
-      navigate('/')
+      navigate('/dashboard')
     } catch (err) {
       setError(err.message);
     }
@@ -27,10 +27,10 @@ const Login = () => {
         <input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
         <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" />
         <button type="submit">Login</button>
-        {error!=null? <p>{error}</p>: null}
+        {error != null ? <p>{error}</p> : null}
       </form>
     </div>
-  </section> );
+  </section>);
 }
 
 export default Login;
