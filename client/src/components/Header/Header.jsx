@@ -1,6 +1,6 @@
 import React from "react";
 import FireWatchLogo from '../../assets/FireWatch4.png';
-import { useUser } from "../../context/userContext/UserContext";
+import { useUser } from "../../context/UserContext/UserContext";
 
 const Header = () => {
 
