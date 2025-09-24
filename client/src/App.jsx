@@ -10,11 +10,11 @@ function App() {
   return (
     <>
     <UserProvider>
-      <Header/>
-      <BrowserRouter>   
+      <BrowserRouter> 
+        <Header/>
         <Main className='main'/>
-      </BrowserRouter> 
-      <Footer/>
+        <Footer/>
+      </BrowserRouter>
     </UserProvider>  
     </>
   )
