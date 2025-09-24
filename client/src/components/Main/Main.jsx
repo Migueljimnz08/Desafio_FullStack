@@ -15,7 +15,11 @@ const Main = () => {
           <AuthUser>
             <Dashboard/>
           </AuthUser>} />
-        <Route path='/*' element={<NotFound/>} />
+        <Route path='/*' 
+        element={
+          <AuthUser>
+            <NotFound/>
+          </AuthUser>} />
       </Routes>
     </main>
   );

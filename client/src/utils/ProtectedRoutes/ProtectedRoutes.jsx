@@ -1,4 +1,4 @@
-import { useUser } from "../../context/UserContext/UserContext";
+import { useUser } from "../../context/UserContext/useUser";
 import { Navigate } from "react-router-dom";
 
 const AuthUser = ({ children }) => {

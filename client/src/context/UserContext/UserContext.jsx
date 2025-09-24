@@ -1,11 +1,7 @@
-import { createContext, useContext, useEffect, useState } from "react";
+
+import { useEffect, useState } from "react";
 import { logout as logoutService, getUserInfo } from '../../services/userServices';
-
-// Crear contexto
-const UserContext = createContext();
-
-// Hook para usarlo 
-export const useUser = () => useContext(UserContext);
+import { UserContext } from "./UserContextContext";
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null); 
@@ -37,7 +33,7 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, setUser, logout, loading }}>
+    <UserContext.Provider value={{ user, setUser, logout, loading, checkAuth }}>
       {children}
     </UserContext.Provider>
   );
