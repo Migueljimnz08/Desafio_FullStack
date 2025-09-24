@@ -1,0 +1,103 @@
+@use '../utils/variables' as vars;
+@use '../utils/mixins' as mixins;
+
+.login-page {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 0;
+  background-color: vars.$background-color;
+  overflow: hidden;
+  position: fixed;
+}
+
+.login-form{
+  background-color: vars.$background-color;
+  color: vars.$color-text;
+  width: 90%;               
+  margin: 0.5rem 1rem 2rem 1rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  @include mixins.card-shadow;
+  text-align: center;
+
+  h2 {
+    @include mixins.cyber-gradient;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    input {
+      padding: 0.65rem 0.9rem;
+      border-radius: 8px;
+      border: 1px solid vars.$border-color;
+      background-color: vars.$input-background;
+      font-size: 1rem;
+      @include mixins.smooth-transition;
+
+      &:focus {
+        outline: none;
+        border-color: vars.$primary-color;
+        box-shadow: 0 0 6px rgba(0, 123, 255, 0.5);
+      }
+    }
+
+    button {
+      padding: 0.75rem;
+      background-color: vars.$primary-color;
+      color: vars.$color-text;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      @include mixins.hover-shadow;
+    }
+
+    p {
+      color: #ff4d4f;
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+    }
+  }
+
+  // Mejoras Tablets 
+  @media (min-width: 480px) {
+    margin: 3rem auto;
+    padding: 2rem;
+    max-width: 380px;
+
+    h2 {
+      font-size: 1.6rem;
+    }
+  }
+
+  // Mejoras Desktop 
+  @media (min-width: 768px) {
+    max-width: 450px;
+    margin: 3rem auto;
+    padding: 2rem;
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    form {
+      gap: 1.2rem;
+      input,
+      button {
+        width: 100%;  
+        box-sizing: border-box;
+      }
+    }
+  }
+}

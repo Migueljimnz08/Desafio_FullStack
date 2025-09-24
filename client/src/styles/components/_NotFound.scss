@@ -1,0 +1,99 @@
+@use '../utils/variables' as vars;
+@use '../utils/mixins' as mixins;
+@use 'sass:color';
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  text-align: center;
+  padding: 2rem 1rem;
+  color: vars.$color-text;
+
+  h1 {
+    position: relative;
+    font-size: 1.6rem;
+    font-weight: 700;
+    @include mixins.cyber-gradient;
+    margin-bottom: 2rem;
+  }
+
+  .picture {
+    width: 100%;
+    max-width: 320px;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    @include mixins.card-shadow;
+    @include mixins.smooth-transition;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+
+    .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .back-home,
+    .back-login {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      @include mixins.smooth-transition;
+      text-align: center;
+    }
+
+    .back-home {
+      background-color: vars.$primary-color;
+      color: vars.$color-text;
+      @include mixins.hover-shadow;
+
+      &:hover {
+        background-color: vars.$button-hover-bg;
+        transform: translateY(-2px);
+      }
+    }
+
+    .back-login {
+      background-color: vars.$secondary-color;
+      color: vars.$color-text;
+      @include mixins.hover-shadow;
+
+      &:hover {
+        background-color: color.adjust(vars.$secondary-color, $lightness: -10%);
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  // Tablets 
+  @media (min-width: 480px) {
+    h1 {
+      font-size: 2rem;
+    }
+    .picture {
+      max-width: 400px;
+    }
+    .buttons {
+      flex-direction: row;
+    }
+  }
+
+  // Desktop 
+  @media (min-width: 768px) {
+    h1 {
+      font-size: 2.4rem;
+    }
+    .picture {
+      max-width: 480px;
+    }
+  }
+}

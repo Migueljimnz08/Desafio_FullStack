@@ -1,0 +1,37 @@
+@use '../../utils/variables' as vars;
+@use '../../utils/mixins' as mixins;
+
+.header-dashboard {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: vars.$background-color;
+  color: vars.$color-text;
+  padding: 0.5rem 2rem;
+  @include mixins.card-shadow;
+
+  .Logo img {
+    width: 100px;
+    height: auto;
+    margin-right: 1rem;
+  }
+
+  .logout-button {
+    background-color: vars.$primary-color;
+    color: vars.$color-text;
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    @include mixins.smooth-transition;
+    @include mixins.hover-shadow;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    margin-left: auto;
+    &:hover {
+      background-color: vars.$button-hover-bg;
+    }
+  }
+}
