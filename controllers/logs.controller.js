@@ -40,6 +40,29 @@ const getLogs = async (req, res) => {
     }
 };
 
+// PUT http://localhost:3000/api/logs
+const updateStatus = async (req,res) => {
+    const {id, status} = req.body;
+    if (!id || !status) {
+        return res.status(400).json({ error: 'Missing required fields'});
+    }
+    try{
+        const updatedStatus = await modelLogs.updateStatus(
+            id,
+            status
+        );
+        if (updatedStatus.rowCount === 0) {
+            return res.status(404).json({ message: 'Could not find the log'});
+        }
+
+        res.status(200).json({ message: 'Status updated successfully', data: updatedStatus});
+    } catch (error) {
+        console.error('Error in updateStatus', error);
+        res.status(500).json({ error: 'Error updating status'});
+    }
+};
+
 module.exports = {
-    getLogs
+    getLogs,
+    updateStatus
 };
