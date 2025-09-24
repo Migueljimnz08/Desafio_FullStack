@@ -3,7 +3,7 @@ import LogsTable from "./LogTable/LogTable";
 
 const Dashboard = () => {
   return <section>
-    Dashboard
+    
     <LogsTable />
   </section>;
 };

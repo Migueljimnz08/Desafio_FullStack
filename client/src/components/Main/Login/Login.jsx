@@ -29,7 +29,7 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
         <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" />
-        <button type="submit">Login</button>
+        <button type="submit">Log in</button>
         {error != null ? <p>{error}</p> : null}
       </form>
     </div>
