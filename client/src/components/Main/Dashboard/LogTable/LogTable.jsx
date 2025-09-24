@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { getAllLogs, updateStatus } from "../../../../services/logServices";
+import { ThreeDots } from 'react-loader-spinner';
 
 export default function LogsTable() {
   const [logs, setLogs] = useState([]);
@@ -30,7 +31,18 @@ export default function LogsTable() {
     fetchLogs();
   }, []);
 
-  if (loading) return <p>Cargando logs...</p>;
+  if (loading) return <>
+  <ThreeDots
+  visible={true}
+  height="80"
+  width="80"
+  color="#007bff"
+  radius="9"
+  ariaLabel="three-dots-loading"
+  wrapperStyle={{}}
+  wrapperClass=""
+  />
+  <p>Cargando logs...</p></>
   if (error) return <p>Error: {error}</p>;
   if (!logs.length) return <p>No hay logs disponibles.</p>;
 

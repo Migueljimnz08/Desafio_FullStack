@@ -26,7 +26,7 @@ const Header = () => {
         <div className="Logo">
           <img src={FireWatchDashboard} alt="Logo" />
         </div>
-        <button className="logout-button" onClick={logout}>Logout</button>
+        <button className="logout-button" onClick={logout}>Log out</button>
       </header>
     );
   }
