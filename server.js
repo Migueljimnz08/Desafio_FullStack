@@ -21,12 +21,12 @@ app.use(cookieParser());
 // Todas las rutas tienen acceso a req.user
 app.use(setUser);
 
-app.use(cors());
+// app.use(cors());
 
-// app.use(cors({
-//   origin: "http://localhost:3000", 
-//   credentials: true
-// }));
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true
+}));
 
 // Mas protección para la web
 app.use(helmet());
@@ -53,10 +53,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.listen(port, () => {
-    console.log(
-        cowsay.say({
-            text: `Example app listening on port http://localhost:${port}`,
-            f: "tux", // Use the tux ASCII art // tux
-        })
-    );
+  console.log(
+    cowsay.say({
+      text: `Example app listening on port http://localhost:${port}`,
+      f: "tux", // Use the tux ASCII art // tux
+    })
+  );
 });
