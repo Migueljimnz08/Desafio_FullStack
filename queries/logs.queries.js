@@ -6,10 +6,10 @@ const queries = {
     SELECT *
     FROM "logs"
     WHERE severity =$1`,
-    UpdateStatus:`
+    UpdateStatus: `
     UPDATE "logs"
     SET status= $2
-    WHERE id=$1
+    WHERE id= $1
     RETURNING *;`
 }
 
