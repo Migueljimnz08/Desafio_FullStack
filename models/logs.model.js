@@ -13,7 +13,13 @@ const getLogsBySeverity = async (severity) => {
     return rows;
 };
 
+// Actualizar status
+const updateStatus = async (id, status) => {
+    return await executeQuery(queries.UpdateStatus[id,status]);
+};
+
 module.exports = {
     getAllLogs,
-    getLogsBySeverity
+    getLogsBySeverity,
+    updateStatus
 }
