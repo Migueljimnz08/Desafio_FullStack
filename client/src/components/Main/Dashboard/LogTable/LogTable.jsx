@@ -6,7 +6,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { getAllLogs } from "../../../../services/logServices";
+import { getAllLogs, updateStatus } from "../../../../services/logServices";
 
 export default function LogsTable() {
   const [logs, setLogs] = useState([]);
@@ -34,9 +34,46 @@ export default function LogsTable() {
   if (error) return <p>Error: {error}</p>;
   if (!logs.length) return <p>No hay logs disponibles.</p>;
 
+  const handleStatusChange = async (id, newStatus) => {
+    try {
+      await updateStatus(id, newStatus);
+      setLogs((prevLogs) =>
+        prevLogs.map((log) =>
+          log.id === id ? { ...log, status: newStatus } : log
+        )
+      );
+    } catch (err) {
+      console.error("Error actualizando el status:", err);
+      alert("No se pudo actualizar el estado.");
+    }
+  };
+
   const columns = [
     { field: "id", headerName: "ID", width: 70, headerAlign: "center" },
-    { field: "status", headerName: "Estado", flex: 1, headerAlign: "center", align: "center" },
+    {
+      field: "status",
+      headerName: "Estado",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      renderCell: (params) => (
+        <select
+          value={params.value}
+          onChange={(e) => handleStatusChange(params.row.id, e.target.value)}
+          style={{
+            padding: "2px 4px",
+            borderRadius: "4px",
+            fontSize: "0.85rem",
+            width: "90%",
+            textAlign: "center",
+          }}
+        >
+          <option value="Nuevo">Nuevo</option>
+          <option value="En progreso">En progreso</option>
+          <option value="Completado">Completado</option>
+        </select>
+      ),
+    },
     { field: "type", headerName: "Tipo", flex: 1, headerAlign: "center", align: "center" },
     { field: "indicators", headerName: "Indicadores", flex: 2, headerAlign: "center", align: "center" },
     {
@@ -48,18 +85,16 @@ export default function LogsTable() {
       renderCell: (params) => {
         const severity = params.value;
         let bgColor = "inherit";
-
         if (severity === 3) bgColor = "red";
         else if (severity === 2) bgColor = "orange";
         else if (severity === 1) bgColor = "yellow";
-
         return (
           <Box
             sx={{
               width: "100%",
               height: "100%",
               bgcolor: bgColor,
-              color: "black", // texto siempre negro
+              color: "black",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -104,6 +139,7 @@ export default function LogsTable() {
           maxWidth: 900,
           margin: "20px 0 20px 20px",
           padding: 1,
+          backgroundColor: "#E5E4E2", // 👈 Fondo de la tarjeta
         }}
       >
         <DataGrid
@@ -118,6 +154,14 @@ export default function LogsTable() {
           sx={{
             border: 0,
             minWidth: 0,
+            backgroundColor: "#E5E4E2", // 👈 Fondo de la tabla
+            "& .MuiDataGrid-columnHeaders": {
+              backgroundColor: "#d6d5d3", // un poco más oscuro para distinguir encabezados
+              fontWeight: "bold",
+            },
+            "& .MuiDataGrid-row": {
+              backgroundColor: "#E5E4E2",
+            },
           }}
         />
       </Paper>
