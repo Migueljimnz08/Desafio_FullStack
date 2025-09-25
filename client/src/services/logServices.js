@@ -39,3 +39,26 @@ export const getLogsWithDetails = async (logId) => {
     }
 };
 
+export const startLogging = async () => {
+  try {
+    const res = await fetch(`https://firewatch-api-flask.onrender.com/start-logging`, {
+      method: "POST",
+    });
+    const data = await res.json();
+    console.log("Start logging:", data);
+  } catch (err) {
+    console.error("Error al iniciar logger:", err);
+  }
+};
+
+export const stopLogging = async () => {
+  try {
+    const res = await fetch(`https://firewatch-api-flask.onrender.com/stop-logging`, {
+      method: "POST",
+    });
+    const data = await res.json();
+    console.log("Stop logging:", data);
+  } catch (err) {
+    console.error("Error al detener logger:", err);
+  }
+};
