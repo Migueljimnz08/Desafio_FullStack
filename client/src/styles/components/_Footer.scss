@@ -6,16 +6,19 @@ footer {
   color: vars.$secondary-color;
   text-align: center;
   font-family: vars.$font-family;
-  font-size: 0.9rem;
-  padding: 1rem;
+  font-size: 0.85rem;
+  padding: 0.7rem;
   margin-top: auto; 
   @include mixins.card-shadow;
-
   position: relative;
   bottom: 0;
   width: 100%;
 
-  // Mejoras en pantallas más grandes
+  @media (min-width: 480px) {
+    font-size: 0.95rem;
+    padding: 1rem;
+  }
+  
   @media (min-width: 768px) {
     font-size: 1rem;
     padding: 1.2rem;

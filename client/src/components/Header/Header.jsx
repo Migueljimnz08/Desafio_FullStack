@@ -5,6 +5,7 @@ import { useUser } from "../../context/UserContext/useUser";
 import { useLocation, useNavigate } from "react-router-dom";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import { stopLogging } from "../../services/logServices";
 
 const Header = () => {
   const { user, logout } = useUser();
@@ -27,6 +28,7 @@ const Header = () => {
   if (location.pathname === '/dashboard') {
     const handleLogout = async () => {
       await logout();
+      stopLogging();
       setOpen(true);
       setTimeout(() => {
         setOpen(false);

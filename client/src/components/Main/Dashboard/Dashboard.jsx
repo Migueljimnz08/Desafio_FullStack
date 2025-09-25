@@ -6,7 +6,6 @@ const Dashboard = () => {
   return <section className="dashboard">
      <Graphs /> 
     <article className="logs">
-      <h2>Logs registrados</h2>
       <LogsTable />
     </article>
   </section>;

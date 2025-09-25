@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from '../../../context/UserContext/useUser';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import { startLogging } from '../../../services/logServices';
 
 
 const Login = () => {
@@ -21,6 +22,7 @@ const Login = () => {
     try {
       await login(email, password);
       await checkAuth();
+      startLogging();
       setOpen(true); // Mostrar el mensaje
       setTimeout(() => navigate('/dashboard'), 1500);
     } catch (err) {
