@@ -8,11 +8,15 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { getAllLogs, updateStatus } from "../../../../services/logServices";
 import { ThreeDots } from 'react-loader-spinner';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 export default function LogsTable() {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const [selectedLog, setSelectedLog] = useState(null);
   const [openModal, setOpenModal] = useState(false);
@@ -54,6 +58,7 @@ export default function LogsTable() {
           log.id === id ? { ...log, status: newStatus } : log
         )
       );
+      setSnackbarOpen(true);
     } catch (err) {
       console.error("Error actualizando el status:", err);
       alert("No se pudo actualizar el estado.");
@@ -153,11 +158,11 @@ export default function LogsTable() {
           maxWidth: "95%",
           margin: "20px",
           padding: 1,
-          backgroundColor: "#E5E4E2", // 👈 Fondo de la tarjeta
+          backgroundColor: "#E5E4E2", // Fondo de la tarjeta
         }}
       >
         <DataGrid
-          autoHeight={false} // 👈 desactivamos autoHeight
+          autoHeight={false} // desactivamos autoHeight
           rows={logs}
           columns={columns}
           getRowId={(row) => row.id}
@@ -167,9 +172,9 @@ export default function LogsTable() {
           }}
           sx={{
             border: 0,
-            width: "100%",
-            height: "calc(100vh - 150px)", // 👈 ocupa casi toda la altura de la ventana
-            backgroundColor: "#E5E4E2",
+            minWidth: 0,
+            height: "calc(100vh - 150px)",
+            backgroundColor: "#E5E4E2", // Fondo de la tabla
             "& .MuiDataGrid-columnHeaders": {
               backgroundColor: "#d6d5d3",
               fontWeight: "bold",
@@ -214,6 +219,20 @@ export default function LogsTable() {
           </Button>
         </Box>
       </Modal>
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={1500}
+        onClose={() => setSnackbarOpen(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        sx={{ zIndex: 9999 }}>
+        <Alert
+          onClose={() => setSnackbarOpen(false)}
+          severity="success"
+          sx={{ width: '100%', fontSize: '1.1rem', fontWeight: 600 }}>
+          ¡Estado actualizado!
+        </Alert>
+      </Snackbar>
     </>
   );
 }
