@@ -49,6 +49,21 @@ SELECT *
 FROM "logs"
 WHERE severity =
 
+-- Obtener datos de cada fila de pishing
+SELECT * 
+FROM phishing 
+WHERE log_id = 
+
+-- Obtener datos de cada fila de login
+SELECT * 
+FROM login
+WHERE log_id = 
+
+-- Obtener datos de cada fila de ddos
+SELECT * 
+FROM ddos
+WHERE log_id = 
+
 -- Crear tabla usuarios
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,

@@ -62,7 +62,48 @@ const updateStatus = async (req, res) => {
     }
 };
 
+// Para pedir info de cada tipo por id
+const getLogsWithDetails = async (req, res) => {
+    const { type, logId } = req.query;
+
+    try {
+        if (!logId) {
+            return res.status(400).json({ message: 'Missing logId in query' });
+        }
+
+        const logs = await modelLogs.getLogsById(logId);
+
+        if (!logs || logs.length === 0) {
+            return res.status(404).json({ message: 'Log not found in main table' });
+        }
+
+        const log = logs[0];
+
+        // Obtener detalles según tipo
+        if (type) {
+            if (type === 'phishing') {
+                log.details = await modelLogs.getPhishingById(logId);
+            } else if (type === 'login') {
+                log.details = await modelLogs.getLoginByid(logId);
+            } else if (type === 'ddos') {
+                log.details = await modelLogs.getDdosById(logId);
+            } else {
+                return res.status(400).json({ message: 'Invalid type parameter' });
+            }
+        }
+
+        res.status(200).json({ log });
+
+    } catch (err) {
+        console.error("Error fetching log:", err);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+
+
 module.exports = {
     getLogs,
-    updateStatus
+    updateStatus,
+    getLogsWithDetails
 };
