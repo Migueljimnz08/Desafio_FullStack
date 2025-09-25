@@ -29,19 +29,19 @@ function App() {
         <Plot data={loginGraph.data} layout={loginLayout} config={{ displayModeBar: false }}/> 
         </> 
       ) : (
-        <>
-        <ThreeDots
-          visible={true}
-          height="80"
-          width="80"
-          color="#007bff"
-          radius="9"
-          ariaLabel="three-dots-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
+        <div className="graphs-loader">
+          <ThreeDots
+            visible={true}
+            height="80"
+            width="80"
+            color="#007bff"
+            radius="9"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
           />
-        <p>Cargando gráficas...</p>
-        </>
+          <p>Cargando gráficas...</p>
+        </div>
       )}
     </article>
   );

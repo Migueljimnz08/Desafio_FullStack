@@ -1,12 +1,14 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { getAllLogs, updateStatus, getLogsWithDetails } from "../../../../services/logServices";
+import IconButton from "@mui/material/IconButton";
+import RefreshIcon from '@mui/icons-material/Refresh';
+import { getAllLogs, updateStatus } from "../../../../services/logServices";
 import { ThreeDots } from 'react-loader-spinner';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
@@ -22,31 +24,39 @@ export default function LogsTable() {
   const [selectedLogDetails, setSelectedLogDetails] = useState(null); // Nuevo estado para detalles
   const [openModal, setOpenModal] = useState(false);
 
-  useEffect(() => {
-    const fetchLogs = async () => {
-      try {
-        const data = await getAllLogs();
-        setLogs(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchLogs();
+
+  const fetchLogs = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await getAllLogs();
+      setLogs(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
+  useEffect(() => {
+    fetchLogs();
+  }, [fetchLogs]);
+
   if (loading) return <>
-    <ThreeDots
-      visible={true}
-      height="80"
-      width="80"
-      color="#007bff"
-      radius="9"
-      ariaLabel="three-dots-loading"
-    />
-    <p>Cargando logs...</p>
-  </>;
+    <div className="logs-loader">
+      <ThreeDots
+        visible={true}
+        height="80"
+        width="80"
+        color="#007bff"
+        radius="9"
+        ariaLabel="three-dots-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+      />
+      <span>Cargando logs...</span>
+    </div>
+  </>
   if (error) return <p>Error: {error}</p>;
   if (!logs.length) return <p>No hay logs disponibles.</p>;
 
@@ -162,6 +172,14 @@ export default function LogsTable() {
 
   return (
     <>
+      <div className="reload-btn-container">
+        <>
+          <h2>Logs registrados</h2>
+          <IconButton aria-label="Recargar" color="primary" onClick={fetchLogs} disabled={loading} size="large">
+            <RefreshIcon />
+          </IconButton>
+        </>
+      </div>
       <Paper
         sx={{
           width: "95%",
