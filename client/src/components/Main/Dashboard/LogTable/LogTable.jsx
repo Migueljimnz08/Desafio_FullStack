@@ -36,17 +36,17 @@ export default function LogsTable() {
   }, []);
 
   if (loading) return <>
-  <ThreeDots
-  visible={true}
-  height="80"
-  width="80"
-  color="#007bff"
-  radius="9"
-  ariaLabel="three-dots-loading"
-  wrapperStyle={{}}
-  wrapperClass=""
-  />
-  <p>Cargando logs...</p></>
+    <ThreeDots
+      visible={true}
+      height="80"
+      width="80"
+      color="#007bff"
+      radius="9"
+      ariaLabel="three-dots-loading"
+      wrapperStyle={{}}
+      wrapperClass=""
+    />
+    <p>Cargando logs...</p></>
   if (error) return <p>Error: {error}</p>;
   if (!logs.length) return <p>No hay logs disponibles.</p>;
 
@@ -86,8 +86,10 @@ export default function LogsTable() {
           }}
         >
           <option value="Nuevo">Nuevo</option>
-          <option value="En progreso">En progreso</option>
-          <option value="Completado">Completado</option>
+          <option value="Clasificado">Clasificado</option>
+          <option value="En investigación">En Investigación</option>
+          <option value="Contención">Contención</option>
+          <option value="Cerrado">Cerrado</option>
         </select>
       ),
     },
@@ -152,15 +154,15 @@ export default function LogsTable() {
     <>
       <Paper
         sx={{
-          width: "80%",
-          maxWidth: 900,
-          margin: "20px 0 20px 20px",
+          width: "95%",
+          maxWidth: "95%",
+          margin: "20px",
           padding: 1,
           backgroundColor: "#E5E4E2", // Fondo de la tarjeta
         }}
       >
         <DataGrid
-          autoHeight
+          autoHeight={false} // desactivamos autoHeight
           rows={logs}
           columns={columns}
           getRowId={(row) => row.id}
@@ -171,9 +173,10 @@ export default function LogsTable() {
           sx={{
             border: 0,
             minWidth: 0,
+            height: "calc(100vh - 150px)",
             backgroundColor: "#E5E4E2", // Fondo de la tabla
             "& .MuiDataGrid-columnHeaders": {
-              backgroundColor: "#d6d5d3", // un poco más oscuro para distinguir encabezados
+              backgroundColor: "#d6d5d3",
               fontWeight: "bold",
             },
             "& .MuiDataGrid-row": {
@@ -216,20 +219,20 @@ export default function LogsTable() {
           </Button>
         </Box>
       </Modal>
-    
-    <Snackbar
-    open={snackbarOpen}
-    autoHideDuration={1500}
-    onClose={() => setSnackbarOpen(false)}
-    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-    sx={{ zIndex: 9999 }}>
-    <Alert
-      onClose={() => setSnackbarOpen(false)}
-      severity="success"
-      sx={{ width: '100%', fontSize: '1.1rem', fontWeight: 600 }}>
-      ¡Estado actualizado!
-    </Alert>
-  </Snackbar>
-  </>
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={1500}
+        onClose={() => setSnackbarOpen(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        sx={{ zIndex: 9999 }}>
+        <Alert
+          onClose={() => setSnackbarOpen(false)}
+          severity="success"
+          sx={{ width: '100%', fontSize: '1.1rem', fontWeight: 600 }}>
+          ¡Estado actualizado!
+        </Alert>
+      </Snackbar>
+    </>
   );
 }
