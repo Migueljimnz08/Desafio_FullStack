@@ -12,11 +12,13 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.2",
     "@mui/x-data-grid": "^8.11.3",
     "normalize.css": "^8.0.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-loader-spinner": "^6.1.6",
+    "react-plotly.js": "^2.6.0",
     "react-router-dom": "^7.9.1",
     "sass": "^1.92.1"
   },

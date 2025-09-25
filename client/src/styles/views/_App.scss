@@ -6,6 +6,15 @@ body {
   font-family: vars.$font-family;
   margin: 0;
   padding: 0;
+  font-size: 15px;
+  overflow-x: hidden;
+
+  @media (min-width: 480px) {
+    font-size: 16px;
+  }
+  @media (min-width: 768px) {
+    font-size: 17px;
+  }
 }
 
 #root {
@@ -15,6 +24,8 @@ body {
 }
 
 .main {
-  flex: 1; 
+  flex: 1;
   display: block;
+  width: 100%;
+  overflow-x: hidden;
 }

@@ -10,20 +10,55 @@ export const getAllLogs = async () => {
 };
 
 export const updateStatus = async (id, status) => {
-    try{
+    try {
         const res = await fetch("/api/logs", {
             method: "PUT",
             headers: {
-            'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({ id, status }),
-            credentials: 'include', 
+            credentials: 'include',
         });
         if (!res.ok) {
-            throw new Error( 'Error updating status' );
+            throw new Error('Error updating status');
         }
         return await res.json();
     } catch (error) {
         throw new Error(error.message);
     }
+};
+
+export const getLogsWithDetails = async (logId) => {
+    try {
+        const res = await fetch(`/api/logs/details?logId=${logId}`);
+        if (!res.ok) throw new Error("Error fetching logs");
+        const data = await res.json();
+        return data.log || data;
+    } catch (err) {
+        throw new Error(err.message);
+    }
+};
+
+export const startLogging = async () => {
+  try {
+    const res = await fetch(`https://firewatch-api-flask.onrender.com/start-logging`, {
+      method: "POST",
+    });
+    const data = await res.json();
+    console.log("Start logging:", data);
+  } catch (err) {
+    console.error("Error al iniciar logger:", err);
+  }
+};
+
+export const stopLogging = async () => {
+  try {
+    const res = await fetch(`https://firewatch-api-flask.onrender.com/stop-logging`, {
+      method: "POST",
+    });
+    const data = await res.json();
+    console.log("Stop logging:", data);
+  } catch (err) {
+    console.error("Error al detener logger:", err);
+  }
 };
