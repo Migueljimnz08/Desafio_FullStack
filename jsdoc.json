@@ -1,0 +1,22 @@
+{
+  "source": {
+    "include": [
+      "config",
+      "controllers",
+      "middlewares",
+      "models",
+      "routes",
+      "utils",
+      "server.js"
+    ],
+    "exclude": [
+      "node_modules",
+      "client"
+    ]
+  },
+  "recurseDepth": 10,
+  "opts": {
+    "destination": "./jsondocs/",
+    "recurse": true
+  }
+}

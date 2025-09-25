@@ -5,11 +5,15 @@ const jwt_secret = process.env.SECRET_KEY;
 
 const protectedRoutes = express.Router();
 
+/**
+ * Middleware para proteger rutas mediante verificación de token JWT y usuario logueado.
+ * @function
+ */
 protectedRoutes.use((req, res, next) => {
     const token = req.cookies.token;
     if (!token) {
-    return res.status(401).redirect('/login');
-  }
+        return res.status(401).redirect('/login');
+    }
     jwt.verify(token, jwt_secret, async (err, decoded) => {
         if (err) {
             return res.status(401).redirect('/login');
