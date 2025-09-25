@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import RefreshIcon from '@mui/icons-material/Refresh';
-import { getAllLogs, updateStatus } from "../../../../services/logServices";
+import { getAllLogs, updateStatus, getLogsWithDetails } from "../../../../services/logServices";
 import { ThreeDots } from 'react-loader-spinner';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
@@ -23,7 +23,6 @@ export default function LogsTable() {
   const [selectedLog, setSelectedLog] = useState(null);
   const [selectedLogDetails, setSelectedLogDetails] = useState(null); // Nuevo estado para detalles
   const [openModal, setOpenModal] = useState(false);
-
 
   const fetchLogs = useCallback(async () => {
     setLoading(true);
@@ -156,7 +155,7 @@ export default function LogsTable() {
             try {
               const response = await getLogsWithDetails(params.row.id);
               console.log("Respuesta completa del backend:", response);
-              const data = response.log || response; // Ajuste dinámico según estructura
+              const data = response.log || response;
               setSelectedLogDetails(data);
             } catch (err) {
               console.error("Error fetching log details:", err);
@@ -230,13 +229,13 @@ export default function LogsTable() {
             left: "50%",
             transform: "translate(-50%, -50%)",
             width: 500,
-            maxHeight: "80vh", // altura máxima del modal
+            maxHeight: "80vh",
             bgcolor: "#ffffff",
             color: "#000000",
             borderRadius: 2,
             boxShadow: 24,
             p: 4,
-            overflowY: "auto", // permite scroll vertical
+            overflowY: "auto",
           }}
         >
           <Typography id="modal-log-title" variant="h6" component="h2">
@@ -256,8 +255,23 @@ export default function LogsTable() {
                     </Box>
                   );
                 }
+
+                // Hacer clicable actions_taken si es una URL
+                if (key === "actions_taken" && typeof value === "string" && value.startsWith("http")) {
+                  return (
+                    <Typography key={key} sx={{ mt: 1 }}>
+                      <strong>{key}:</strong>{" "}
+                      <a href={value} target="_blank" rel="noopener noreferrer" style={{ color: "#1976d2", textDecoration: "underline" }}>
+                        Ver documento
+                      </a>
+                    </Typography>
+                  );
+                }
+
                 return (
-                  <Typography key={key}><strong>{key}:</strong> {value}</Typography>
+                  <Typography key={key} sx={{ mt: 1 }}>
+                    <strong>{key}:</strong> {value}
+                  </Typography>
                 );
               })}
             </Box>
