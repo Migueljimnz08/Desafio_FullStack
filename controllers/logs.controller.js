@@ -62,45 +62,56 @@ const updateStatus = async (req, res) => {
     }
 };
 
-// Para pedir info de cada tipo por id
+
 const getLogsWithDetails = async (req, res) => {
-    const { type, logId } = req.query;
+    const { logId } = req.query;
+
+    if (!logId) {
+        return res.status(400).json({ message: 'Missing logId in query' });
+    }
 
     try {
-        if (!logId) {
-            return res.status(400).json({ message: 'Missing logId in query' });
-        }
+        // Obtener log principal
+        const mainLogs = await modelLogs.getLogsById(logId);
 
-        const logs = await modelLogs.getLogsById(logId);
-
-        if (!logs || logs.length === 0) {
+        if (!mainLogs || mainLogs.length === 0) {
             return res.status(404).json({ message: 'Log not found in main table' });
         }
 
-        const log = logs[0];
+        const mainLog = mainLogs[0];
 
-        // Obtener detalles según tipo
-        if (type) {
-            if (type === 'phishing') {
-                log.details = await modelLogs.getPhishingById(logId);
-            } else if (type === 'login') {
-                log.details = await modelLogs.getLoginByid(logId);
-            } else if (type === 'ddos') {
-                log.details = await modelLogs.getDdosById(logId);
-            } else {
-                return res.status(400).json({ message: 'Invalid type parameter' });
+        // Modelos secundarios
+        const secondaryModels = [
+            modelLogs.getPhishingById,
+            modelLogs.getLoginByid,
+            modelLogs.getDdosById
+        ];
+
+        let secondaryData = null;
+
+        // Buscar en las tablas secundarias hasta encontrar coincidencia
+        for (const modelFunc of secondaryModels) {
+            const rows = await modelFunc(mainLog.id);
+            if (rows && rows.length > 0) {
+                secondaryData = rows[0];
+                break;
             }
         }
 
-        res.status(200).json({ log });
+        if (!secondaryData) {
+            return res.status(404).json({ message: 'No matching details found in secondary tables' });
+        }
+
+        // Combinar la info del log principal con la fila coincidente
+        const combinedLog = { ...mainLog, ...secondaryData };
+
+        res.status(200).json({ log: combinedLog });
 
     } catch (err) {
-        console.error("Error fetching log:", err);
+        console.error("Error fetching log details:", err);
         res.status(500).json({ message: "Internal server error" });
     }
 };
-
-
 
 module.exports = {
     getLogs,

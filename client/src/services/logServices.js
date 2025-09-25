@@ -28,9 +28,9 @@ export const updateStatus = async (id, status) => {
     }
 };
 
-export const getLogsWithDetails = async (logId = "", type = "") => {
+export const getLogsWithDetails = async (logId) => {
     try {
-        const res = await fetch(`api/logs/details?logId=${logId}&type=${type}`);
+        const res = await fetch(`api/logs/details${logId}`);
         if (!res.ok) throw new Error("Error fetching logs");
         const data = await res.json();
         return data.data || data;
