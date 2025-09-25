@@ -1,5 +1,13 @@
 const jwt = require('jsonwebtoken');
 
+/**
+ * Middleware para decodificar el token JWT y establecer el usuario en la petición.
+ * @function setUser
+ * @param {Object} req - Objeto de solicitud Express.
+ * @param {Object} res - Objeto de respuesta Express.
+ * @param {Function} next - Función next de Express.
+ * @returns {void}
+ */
 function setUser(req, res, next) {
   const token = req.cookies.token;
   if (token) {

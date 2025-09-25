@@ -4,7 +4,9 @@ const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const cors = require('cors');
-const helmet = require('helmet')
+const helmet = require('helmet');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -21,12 +23,12 @@ app.use(cookieParser());
 // Todas las rutas tienen acceso a req.user
 app.use(setUser);
 
-// app.use(cors());
+app.use(cors());
 
-app.use(cors({
-  origin: "http://localhost:3000",
-  credentials: true
-}));
+// app.use(cors({
+//   origin: "http://localhost:3000",
+//   credentials: true
+// }));
 
 // Mas protección para la web
 app.use(helmet());
@@ -41,6 +43,7 @@ const logsRoutes = require('./routes/logs.routes');
 // Rutas API 
 app.use('/api', usersRoutes);
 app.use('/api/logs', logsRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 //* Serve static assets in production, must be at this location of this file
 if (process.env.NODE_ENV === 'production') {

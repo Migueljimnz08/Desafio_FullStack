@@ -11,7 +11,8 @@
     "clientinstall": "npm install --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "deploy": "concurrently \"npm run server\" \"npm run client\"",
-    "feed_db": "node seed/seeder.js"
+    "feed_db": "node seed/seeder.js",
+    "generate-docs": "jsdoc -c ./jsdoc.json"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
