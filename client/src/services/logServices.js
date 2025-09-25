@@ -30,10 +30,10 @@ export const updateStatus = async (id, status) => {
 
 export const getLogsWithDetails = async (logId) => {
     try {
-        const res = await fetch(`api/logs/details${logId}`);
+        const res = await fetch(`/api/logs/details?logId=${logId}`);
         if (!res.ok) throw new Error("Error fetching logs");
         const data = await res.json();
-        return data.data || data;
+        return data.log || data;
     } catch (err) {
         throw new Error(err.message);
     }

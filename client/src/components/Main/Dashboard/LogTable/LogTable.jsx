@@ -6,7 +6,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { getAllLogs, updateStatus } from "../../../../services/logServices";
+import { getAllLogs, updateStatus, getLogsWithDetails } from "../../../../services/logServices";
 import { ThreeDots } from 'react-loader-spinner';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
@@ -19,6 +19,7 @@ export default function LogsTable() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const [selectedLog, setSelectedLog] = useState(null);
+  const [selectedLogDetails, setSelectedLogDetails] = useState(null); // Nuevo estado para detalles
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
@@ -43,10 +44,9 @@ export default function LogsTable() {
       color="#007bff"
       radius="9"
       ariaLabel="three-dots-loading"
-      wrapperStyle={{}}
-      wrapperClass=""
     />
-    <p>Cargando logs...</p></>
+    <p>Cargando logs...</p>
+  </>;
   if (error) return <p>Error: {error}</p>;
   if (!logs.length) return <p>No hay logs disponibles.</p>;
 
@@ -139,9 +139,19 @@ export default function LogsTable() {
         <Button
           variant="outlined"
           size="small"
-          onClick={() => {
+          onClick={async () => {
             setSelectedLog(params.row);
             setOpenModal(true);
+            setSelectedLogDetails(null);
+            try {
+              const response = await getLogsWithDetails(params.row.id);
+              console.log("Respuesta completa del backend:", response);
+              const data = response.log || response; // Ajuste dinámico según estructura
+              setSelectedLogDetails(data);
+            } catch (err) {
+              console.error("Error fetching log details:", err);
+              setSelectedLogDetails({ error: "No se pudo cargar la información" });
+            }
           }}
         >
           Mostrar más
@@ -158,11 +168,11 @@ export default function LogsTable() {
           maxWidth: "95%",
           margin: "20px",
           padding: 1,
-          backgroundColor: "#E5E4E2", // Fondo de la tarjeta
+          backgroundColor: "#E5E4E2",
         }}
       >
         <DataGrid
-          autoHeight={false} // desactivamos autoHeight
+          autoHeight={false}
           rows={logs}
           columns={columns}
           getRowId={(row) => row.id}
@@ -174,7 +184,7 @@ export default function LogsTable() {
             border: 0,
             minWidth: 0,
             height: "calc(100vh - 150px)",
-            backgroundColor: "#E5E4E2", // Fondo de la tabla
+            backgroundColor: "#E5E4E2",
             "& .MuiDataGrid-columnHeaders": {
               backgroundColor: "#d6d5d3",
               fontWeight: "bold",
@@ -186,10 +196,14 @@ export default function LogsTable() {
         />
       </Paper>
 
+      {/* Modal dinámico para mostrar todos los detalles */}
       <Modal
         open={openModal}
-        onClose={() => setOpenModal(false)}
-        aria-labelledby="modal-actions-title"
+        onClose={() => {
+          setOpenModal(false);
+          setSelectedLogDetails(null);
+        }}
+        aria-labelledby="modal-log-title"
       >
         <Box
           sx={{
@@ -197,22 +211,48 @@ export default function LogsTable() {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 400,
-            bgcolor: "background.paper",
+            width: 500,
+            maxHeight: "80vh", // altura máxima del modal
+            bgcolor: "#ffffff",
+            color: "#000000",
             borderRadius: 2,
             boxShadow: 24,
             p: 4,
+            overflowY: "auto", // permite scroll vertical
           }}
         >
-          <Typography id="modal-actions-title" variant="h6" component="h2">
-            Actions Taken
+          <Typography id="modal-log-title" variant="h6" component="h2">
+            Detalles
           </Typography>
-          <Typography sx={{ mt: 2 }}>
-            {selectedLog?.actions_taken || "No actions recorded."}
-          </Typography>
+
+          {selectedLogDetails ? (
+            <Box sx={{ mt: 2 }}>
+              {Object.entries(selectedLogDetails).map(([key, value]) => {
+                if (value && typeof value === "object") {
+                  return (
+                    <Box key={key} sx={{ mt: 1, pl: 2, borderLeft: "2px solid #ccc" }}>
+                      <Typography variant="subtitle1">{key}:</Typography>
+                      {Object.entries(value).map(([k, v]) => (
+                        <Typography key={k}><strong>{k}:</strong> {v}</Typography>
+                      ))}
+                    </Box>
+                  );
+                }
+                return (
+                  <Typography key={key}><strong>{key}:</strong> {value}</Typography>
+                );
+              })}
+            </Box>
+          ) : (
+            <Typography sx={{ mt: 2 }}>Cargando detalles...</Typography>
+          )}
+
           <Button
             variant="contained"
-            onClick={() => setOpenModal(false)}
+            onClick={() => {
+              setOpenModal(false);
+              setSelectedLogDetails(null);
+            }}
             sx={{ mt: 3 }}
           >
             Cerrar
@@ -225,11 +265,13 @@ export default function LogsTable() {
         autoHideDuration={1500}
         onClose={() => setSnackbarOpen(false)}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        sx={{ zIndex: 9999 }}>
+        sx={{ zIndex: 9999 }}
+      >
         <Alert
           onClose={() => setSnackbarOpen(false)}
           severity="success"
-          sx={{ width: '100%', fontSize: '1.1rem', fontWeight: 600 }}>
+          sx={{ width: '100%', fontSize: '1.1rem', fontWeight: 600 }}
+        >
           ¡Estado actualizado!
         </Alert>
       </Snackbar>
