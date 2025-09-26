@@ -31,7 +31,17 @@ app.use(cors());
 // }));
 
 // Mas protección para la web
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      connectSrc: ["'self'", "https://firewatch-api-flask.onrender.com"],
+      imgSrc: ["'self'", "data:"],
+      scriptSrc: ["'self'"],
+      styleSrc: ["'self'"],
+    },
+  },
+}));
 
 // Configuración del logger con morgan
 app.use(morgan(':method :url :status :param[id] - :response-time ms :body'));

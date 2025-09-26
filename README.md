@@ -56,6 +56,7 @@ PREGUNTAR A MIGUEL
 	git clone https://github.com/TU_USUARIO/TU_REPO.git
 
 2. Instalar dependencias:
+
 * Abrir terminal:
 - cd backend/ npm install
 - cd frontend/ npm install
@@ -63,15 +64,17 @@ PREGUNTAR A MIGUEL
 3. Crear archivos .env basados en .env.example en backend y frontend
 
 4. Iniciar servidor backend:
+
 - npm run dev
 
 5. Acceder a la app en:
+
 - http://localhost:3000
 
 ## 🌐 Proyecto desplegado
 - https://desafio-fullstack-5yro.onrender.com
 
-## 🌐 Documentación y Endpoints
+## 🌐 Documentación
 - Swagger: http://localhost:3000/api-docs
 - JSDoc: Abrir archivo .html alojado en la carpeta/jsondocs
 
