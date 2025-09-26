@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import FireWatchDashboard from '../../assets/FireWatch5.png';
 import FireWatchLogin from '../../assets/FireWatch4.png';
 import { useUser } from "../../context/UserContext/useUser";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import { stopLogging } from "../../services/logServices";
 
 const Header = () => {
   const { user, logout } = useUser();
   const location = useLocation();
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
   // Solo logo en login
   if (location.pathname === '/' || location.pathname === '/login') {
@@ -21,12 +26,34 @@ const Header = () => {
 
   // Logo + logout en dashboard
   if (location.pathname === '/dashboard') {
+    const handleLogout = async () => {
+      await logout();
+      stopLogging();
+      setOpen(true);
+      setTimeout(() => {
+        setOpen(false);
+        navigate('/');
+      }, 1500);
+    };
     return (
       <header className="header-dashboard">
         <div className="Logo">
           <img src={FireWatchDashboard} alt="Logo" />
         </div>
-        <button className="logout-button" onClick={logout}>Logout</button>
+        <button className="logout-button" onClick={handleLogout}>Cerrar sesión</button>
+        <Snackbar
+          open={open}
+          autoHideDuration={1500}
+          onClose={() => setOpen(false)}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          sx={{ zIndex: 9999 }}>
+          <Alert
+            onClose={() => setOpen(false)}
+            severity="success"
+            sx={{ width: '100%', fontSize: '1.1rem', fontWeight: 600 }}>
+            ¡Sesión cerrada correctamente!
+          </Alert>
+        </Snackbar>
       </header>
     );
   }

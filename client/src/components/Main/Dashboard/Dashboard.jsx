@@ -1,10 +1,13 @@
 import React from "react";
 import LogsTable from "./LogTable/LogTable";
+import Graphs from "./Graphs/Graphs";
 
 const Dashboard = () => {
-  return <section>
-    Dashboard
-    <LogsTable />
+  return <section className="dashboard">
+     <Graphs /> 
+    <article className="logs">
+      <LogsTable />
+    </article>
   </section>;
 };
 
