@@ -1,85 +1,132 @@
-# FireWatch
+# 🔐 FireWatch - Proyecto final, Fullstack + Ciber security + Data Science
 
-## Descripción
-Proyecto FullStack para la gestión y visualización de logs de ciberseguridad. Incluye:
-- Backend en Node.js/Express con PostgreSQL.
-- Frontend en React + Vite.
-- Documentación automática con JSDoc y Swagger.
 
-## Características principales
-- Autenticación de usuarios y roles.
-- Visualización de logs y gráficas interactivas.
-- API REST documentada con Swagger.
-- Estilos modernos y responsive con SASS/SCSS y Material UI.
+## 📝 Descripción
 
-## Estructura del proyecto
+**CyberWatch** es una aplicación web para la **gestión y monitorización de eventos de ciberseguridad**.  
+Permite a los usuarios consultar información de seguridad y amenazas, filtrar por diferentes campos, cambiar el estado en el que se encuentra la alerta, obtener más información mediante un click, y obtener acceso a un PDF detallado que muestra como combatir y solventar estos ataques.
+
+Cuenta con **autenticación JWT** y un sistema de logs centralizado para PostgreSQL.  
+
+---
+
+## 🛠️ Tecnologías usadas
+
+- **Frontend:** React, JSX, SASS, HTML5, CSS3  
+- **Backend:** Node.js + Express
+- **Base de datos:** PostgreSQL  
+- **Documentación:** Swagger, JSDoc  
+- **Autenticación:** JWT  
+- **Control de versiónes:** Git + GitHub  
+- **Despliegue:** Render + Docker
+
+---
+
+## 🎯 Objetivos del proyecto
+
+- Crear una aplicación web full stack funcional orientada a ciberseguridad  
+- Permitir gestión y monitorización de eventos de seguridad  
+- Implementar buenas prácticas de seguridad y arquitectura MVC  
+- Gestionar autenticación 
+- Aplicar metodología ágil SCRUM  
+- Documentar backend con Swagger y JSDoc  
+- Trabajo colaborativo entre diferentes departamentos: fullstack, cibersguridad y data science
+
+---
+
+## 🧩 Funcionalidades principales
+
+- Registro y login seguro con JWT    
+- Visualización de logs y eventos de seguridad   
+- Filtración por diferentes categorías
+- Muestra visual, mediante gráficas y porcentajes de los ataques recibidos
+- Ampliación de información para la mitigación de estos ataques a través de playbooks 
+- Simulación de ataques en vivo
+
+---
+
+## 📸 Capturas de pantalla
+
+PREGUNTAR A MIGUEL
+
+## 🚀 Cómo ejecutar el proyecto
+
+1. Clonar el repositorio:  
+
+	git clone https://github.com/TU_USUARIO/TU_REPO.git
+
+2. Instalar dependencias:
+* Abrir terminal:
+- cd backend/ npm install
+- cd frontend/ npm install
+
+3. Crear archivos .env basados en .env.example en backend y frontend
+
+4. Iniciar servidor backend:
+- npm run dev
+
+5. Acceder a la app en:
+- http://localhost:3000
+
+## 🌐 Proyecto desplegado
+- https://desafio-fullstack-5yro.onrender.com
+
+## 🌐 Documentación y Endpoints
+- Swagger: http://localhost:3000/api-docs
+- JSDoc: Abrir archivo .html alojado en la carpeta/jsondocs
+
+## 📂 Estructura del proyecto
 ```
-├── server.js
-├── Dockerfile
-├── package.json
-├── jsdoc.json
-├── config/
-├── controllers/
-├── middlewares/
-├── models/
-├── queries/
-├── routes/
-├── seed/
-├── utils/
-├── client/
+project-root/
+├── backend/
+│   ├── controllers/
+│   ├── jsondocs/
+│   ├── middlewares/
+│   ├── models/
+│   ├── queries/
+│   ├── routes/
+│   ├── seed/
+│   ├── utils/
+│   ├── config/
+│   ├── .env
+│   ├── .env.example
+│   ├── .gitignore
+│   ├── Dockerfile
+│   ├── jsdoc.json
 │   ├── package.json
-│   ├── src/
+│   ├── README.md
+│   └── server.js
+│
+├── frontend/
 │   ├── public/
-│   └── ...
+│   └── src/
+│       ├── assets/
+│       ├── components/
+│       ├── pages/
+│       ├── styles/
+│       ├── services/
+│       ├── utils/
+│       ├── context/
+│       ├── App.jsx
+│       └── main.jsx
+──
 ```
+## 📚 Lecciones aprendidas
 
-## Instalación
+- Integración segura con PostgreSQL
+- Gestión de autenticación JWT
+- Uso avanzado de Express y middlewares
+- Diseño y consumo de APIs REST seguras
+- Planificación de tareas con metodología SCRUM
+- Trabajo colaborativo con GitHub
+- Trabajo en equipos con otros departamentos
 
-1. Clona el repositorio:
-	 ```bash
-	 git clone https://github.com/Migueljimnz08/Desafio_FullStack.git
-	 cd Desafio_FullStack
-	 ```
+## 🔧 Funcionalidades futuras
 
-2. Instala dependencias:
-	 ```bash
-	 npm install
-	 npm run clientinstall
-	 ```
+- Autenticación con OAuth (Google, GitHub)
+- Simulador de ataques real
+- Posibilidad de resolver el ataque desde la aplicación
 
-3. Configura las variables de entorno en `.env` (ver `.env.example`).
-
-4. Inicializa la base de datos (opcional):
-	 ```bash
-	 npm run feed_db
-	 ```
-
-## Uso
-
-- Inicia el servidor y el cliente en modo desarrollo:
-	```bash
-	npm run dev
-	```
-
-- Accede a la aplicación en [http://localhost:3000](http://localhost:3000).
-
-## Documentación
-
-- **JSDoc:**  
-	Genera la documentación técnica del backend:
-	```bash
-	npm run generate-docs
-	```
-	Consulta la documentación en `jsondocs/index.html`.
-
-- **Swagger:**  
-	Accede a la documentación interactiva de la API en  
-	[http://localhost:3000/api-docs](http://localhost:3000/api-docs).
-
-## Docker
-
-Para ejecutar el proyecto con Docker:
-```bash
-docker build -t desafio_fullstack .
-docker run -p 8080:8080 desafio_fullstack
-```
+## 🧑‍💻 Autores
+Miguel Ángel Jiménez
+María de Nazaret Melquiades
