@@ -47,7 +47,7 @@ Cuenta con **autenticación JWT** y un sistema de logs centralizado para Postgre
 
 ## 📸 Capturas de pantalla
 
-PREGUNTAR A MIGUEL
+![Home](./assets/DESAFÍO1.png)
 
 ## 🚀 Cómo ejecutar el proyecto
 
