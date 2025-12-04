@@ -3,7 +3,7 @@
 
 ## 📝 Descripción
 
-**CyberWatch** es una aplicación web para la **gestión y monitorización de eventos de ciberseguridad**.  
+**FireWatch** es una aplicación web para la **gestión y monitorización de eventos de ciberseguridad**.  
 Permite a los usuarios consultar información de seguridad y amenazas, filtrar por diferentes campos, cambiar el estado en el que se encuentra la alerta, obtener más información mediante un click, y obtener acceso a un PDF detallado que muestra como combatir y solventar estos ataques.
 
 Cuenta con **autenticación JWT** y un sistema de logs centralizado para PostgreSQL.  
